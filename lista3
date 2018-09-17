@@ -5,7 +5,7 @@ using namespace std;
 typedef string Texto;
 typedef int Dado;
 
-class noh () { 
+class noh { 
 	friend class lista;
 	private:
 		noh *proximo;
@@ -18,12 +18,12 @@ class noh () {
 		
 };
 
-noh::noh(Dado x, Texto y) : numeroMatricula(x):nomeAluno(y) {
+noh::noh(Dado x, Texto y) : numeroMatricula(x), nomeAluno(y) {
 	proximo = NULL;
 	anterior = NULL;
 }
 
-class lista() { 
+class lista { 
 	
 	private:
 		noh *primeiro;
@@ -33,11 +33,10 @@ class lista() {
 	public:
 		lista();
 		void insereComeco(Dado numeroMatricula, Texto nomeAluno);
-		void lista::buscaPosicao (Dado valor);
-		unsigned lista::buscaPosicao (Dado valor);
-		void lista::remover (Dado posicao);
-		void lista::imprime ();
-		void lista::imprimeInverso ();
+		int buscaPosicao (Dado valor);
+		void remover (Dado posicao);
+		void imprime ();
+		void imprimeInverso ();
 };
 
 lista :: lista(){
@@ -50,6 +49,7 @@ void lista::insereComeco (Dado numeroMatricula, Texto nomeAluno){
 	
 	noh *novo = new noh (numeroMatricula,nomeAluno);
 	novo->proximo = primeiro;
+	anterior = novo->proximo;
 	primeiro = novo;
 	if ( tamanho == 0 ) 
 		ultimo = novo;
@@ -70,7 +70,9 @@ Dado lista::buscaPosicao (Dado valor){
 
 void lista::remover (Dado posicao) { 	
 	
+	noh *aux = primeiro;
 	noh *remover;
+	
 	if (posicao == 0) {
 		noh *aux = primeiro;
 		remover = aux;
@@ -78,14 +80,16 @@ void lista::remover (Dado posicao) {
 		aux->proximo->anterior = NULL;
 		delete remover;
 	}
-	else if (posicao == tamanho-1 && tamanho!=0){
+	else if (posicao == (tamanho-1) && tamanho!=0){
 		noh *aux = ultimo;
 		remover = aux;
 		ultimo = aux->anterior;
 		aux->anterior->proximo = NULL;
 		delete remover;
 	}else{
+		
 		unsigned posicao = buscaPosicao(posicao);
+		
 		for (int i = 0; i < posicao ; i++){
 		aux = aux->proximo;
 		}
@@ -93,7 +97,8 @@ void lista::remover (Dado posicao) {
 		aux = remover->proximo;
 		remover->proximo->anterior = anterior;
 	 }
-}
+ }
+
 
 void lista::imprime () { 
 	
@@ -120,22 +125,22 @@ int main () {
 	lista minhaLista;
 	int x;
 	string y;
-	string opcao;
+	char opcao;
 	cin >> opcao;
 	while ( opcao != 'T' ) {
 	switch (opcao) {
-		case 'I':
-                cin >> x,y;
-                minhaLista.insere(x,y);
+			case 'I':
+                cin >> x >> y;
+                minhaLista.insereComeco(x,y);
                 break;
             case 'R':
                 cin >> x;
-                minhaLista.remove(x);
+                minhaLista.remover(x);
                 break;
-            case "ED":
+            case 'D':
                 minhaLista.imprime();
                 break;
-            case "ER":
+            case 'L':
                 minhaLista.imprimeInverso();
                 break;
         }
