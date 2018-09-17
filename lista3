@@ -3,10 +3,10 @@
 using namespace std;
 
 typedef string Texto;
-typedef unsigned Dado;
+typedef int Dado;
 
 class noh () { 
-	
+	friend class lista;
 	private:
 		noh *proximo;
 		noh *anterior;
@@ -16,9 +16,9 @@ class noh () {
 	public:
 		noh (Dado x, Texto y);
 		
-}
+};
 
-noh :: noh(Dado x, Texto y) : numeroMatricula(x) : nomeAluno(y) {
+noh::noh(Dado x, Texto y) : numeroMatricula(x):nomeAluno(y) {
 	proximo = NULL;
 	anterior = NULL;
 }
@@ -37,7 +37,8 @@ class lista() {
 		unsigned lista::buscaPosicao (Dado valor);
 		void lista::remover (Dado posicao);
 		void lista::imprime ();
-}
+		void lista::imprimeInverso ();
+};
 
 lista :: lista(){
 	primeiro = NULL;
@@ -65,6 +66,7 @@ Dado lista::buscaPosicao (Dado valor){
 		contador++;
 	}
 	return contador;
+}
 
 void lista::remover (Dado posicao) { 	
 	
@@ -96,174 +98,53 @@ void lista::remover (Dado posicao) {
 void lista::imprime () { 
 	
 	noh *aux = primeiro;
-	while ( primeiro != NULL ) { 
+	while ( aux != NULL ) { 
 		cout << aux->nomeAluno << " " << aux->numeroMatricula;
 		aux = aux->proximo;
 		cout << endl;
 	}
 }
-pow(8,2
+
+void lista::imprimeInverso () { 
+	
+		noh *aux = ultimo;
+		while ( aux != NULL ) { 
+		cout << aux->nomeAluno << " " << aux->numeroMatricula;
+		aux = aux->anterior;
+		cout << endl;
+	}
+}
+
 int main () { 
 	
-	lista escola;
-	string nome;#include <iostream>
-
-using namespace std; 
-
-typedef int dado;
-
-class noh { 
-	
-    friend class lista;
-    
-    public:
-    
-        noh ( dado var );
-    
-    private:
-    
-        dado num;
-        noh *mProx;
-    
-};
-
-
-class lista { 
-    
-    public:
-        
-        lista ();
-        
-        void inserirNoComeco ( dado valor );
-        void inserirNoFim (dado valor);
-        void imprime ();
-            
-    
-    private:
-    
-        noh *primeiro;
-        noh *ultimo;
-        int tamanho;
-};
-
- 
-    this->num = var;
-    this->mProx = NULL;
-}
-
-    
-void lista :: inserirNoFim (dado valor) { 
-    
-    noh *novo = new noh (valor);
-    
-    if ( primeiro == NULL ) {
-        primeiro = novo;
-        ultimo = novo;
-    } else { 
-        
-        ultimo->mProx = novo;
-        ultimo = novo;
-    }
-    tamanho++;
-}
-
-lista :: lista () { 
-    
-    primeiro = NULL;
-    ultimo = NULL;
-    tamanho =0;
-}
-
-void lista :: imprime () { 
-    
-    noh *aux = primeiro;
-    
-    while (aux) { 
-        
-        cout << aux->mProx << " ";
-        aux = aux->mProx;
-    }
-    
-    cout << endl;
-}
-
-void lista :: inserirNoComeco (dado valor) {
-    
-    noh *novo = new noh (valor);
-    
-    if ( primeiro == NULL ) { 
-        primeiro = novo;
-        ultimo = novo;
-    } else { 
-        
-        primeiro->mProx = novo;
-        primeiro = novo;
-    }
-}
-        
-
-int main () { 
-
-
-    lista teste;
-    
-    teste.inserirNoFim (12);
-    teste.inserirNoFim(0);
-    teste.inserirNoFim (6);
-    teste.inserirNoFim (3);
-    teste.inserirNoFim(1);
-    //teste.inserirNoComeco (90);
-    //teste.inserirNoComeco (6);
-    
-    teste.imprime();
-    
-    return 0;
-}
-
-    
-
-
-	unsigned matricula;
-	
-    do {
+	lista minhaLista;
+	int x;
+	string y;
+	string opcao;
+	cin >> opcao;
+	while ( opcao != 'T' ) {
+	switch (opcao) {
+		case 'I':
+                cin >> x,y;
+                minhaLista.insere(x,y);
+                break;
+            case 'R':
+                cin >> x;
+                minhaLista.remove(x);
+                break;
+            case "ED":
+                minhaLista.imprime();
+                break;
+            case "ER":
+                minhaLista.imprimeInverso();
+                break;
+        }
         cin >> opcao;
-        if (opcao == "i") {
-			cin >> nome >> matricula;
-			
-			
-            
-            if (idLista == 'a')
-                listaA.insere(palavra);
-            else
-                listaB.insere(palavra);
-        }
-        else if (opcao == "a=b") {
-            listaA = listaB;
-        }
-        else if (opcao == "b=a") {
-            listaB = listaA;
-        }
-        else if (opcao == "s") {
-            lista soma = listaA + listaB;
-            soma.imprime();
-        }
-        else if (opcao == "e") {
-            cin >> idLista;
-            if (idLista == 'a')
-                listaA.imprime();
-            else
-                listaB.imprime();
-        }
-    } while (opcao != "t");
+    }
+    
     return 0;
 }
-	
-	
-	
-	
-	
-	
-	
+
 	
 		
 	
